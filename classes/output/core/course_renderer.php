@@ -182,7 +182,7 @@ class theme_simplest_core_course_renderer extends core_course_renderer {
             $output .= $mod->afterlink;
 
             // Closing the tag which contains everything but edit icons. Content part of the module should not be part of this.
-            $output .= html_writer::end_tag('div'); // .activityinstance.
+            $output .= html_writer::end_tag('div'); // Tag: .activityinstance.
         }
 
         // If there is content but NO link (eg label), then display the
