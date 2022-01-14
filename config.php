@@ -42,7 +42,7 @@ $THEME->layouts = [
     ),
     // Main course page.
     'course' => array(
-        'file' => 'columns.php',
+        'file' => 'course.php',
         'regions' => array('side-pre', 'side-post'),
         'defaultregion' => 'side-pre',
         'options' => array('langmenu' => true),

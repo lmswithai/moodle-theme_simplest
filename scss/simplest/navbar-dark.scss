@@ -1,13 +1,20 @@
+/* stylelint-disable declaration-no-important */
+/* stylelint-disable scss/at-extend-no-missing-placeholder */
+/* stylelint-disable csstree/validator */
 .navbar-bootswatch {
+
     @extend .navbar-dark;
-    background-color: #0B2F5B;
+
+    background-color: #0b2f5b;
 
     .usermenu {
         color: $navbar-dark-color;
+
         .login a {
             color: $navbar-dark-color;
         }
     }
+
     a.dropdown-toggle,
     a .usertext {
         color: $navbar-dark-active-color;
@@ -19,7 +26,8 @@
             color: $navbar-dark-disabled-color;
         }
     }
+
     .dropdown-menu a .icon {
-        color: inherit !important; // stylelint-disable-line declaration-no-important
+        color: inherit !important;
     }
 }

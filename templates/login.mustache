@@ -19,15 +19,6 @@
 
     Login page template
 
-    Example context (json):
-    {
-        "output": {
-            "doctype": "<!DOCTYPE html>",
-            "page_title": "Login page",
-            "favicon": "favicon.ico",
-            "main_content": "<h1>Headers keep HTML validators happy</h1>"
-        }
-    }
 }}
 {{> theme_boost/head }}
 
@@ -61,6 +52,9 @@
             {{{ output.home_link }}}
             {{{ output.standard_footer_html }}}
             {{{ output.standard_end_of_body_html }}}
+        </div>
+        <div class="container">
+             <p class="lmswithai d-flex align-items-center"> <span>{{#str}}madeby, theme_simplest{{/str}}</span><img src="https://intersiec.pl/img/lmswithai.png" alt="LMSwithAI logo" width="75" height="20"></p>
         </div>
     </footer>
 </div>

@@ -18,6 +18,8 @@ Has additional features:
 
 - Hiding the Moodle logo in the footer
 
+- Block of quotes
+
 Simplest is built on Boostrap4 and Mustache templates.
 
 Documentation

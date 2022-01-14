@@ -70,6 +70,33 @@ if ($ADMIN->fulltree) {
     // Must add the page after definiting all the settings!
     $settings->add($page);
 
+    $page = new admin_settingpage('theme_simplest_other', get_string('othersettings', 'theme_simplest'));
+
+    $name = 'theme_simplest/disableinspirationalquotes';
+    $title = get_string('disableinspirationalquotes', 'theme_simplest');
+    $description = get_string('disableinspirationalquotesdesc', 'theme_simplest');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $name = 'theme_simplest/inspirationalquotes';
+    $title = get_string('inspirationalquotes', 'theme_simplest');
+    $description = get_string('inspirationalquotesdesc', 'theme_simplest');
+    $default = get_string('inspirationalquotesdef', 'theme_simplest');
+    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $name = 'theme_simplest/inspirationalquotesduration';
+    $title = get_string('inspirationalquotesduration', 'theme_simplest');
+    $description = get_string('inspirationalquotesdurationdesc', 'theme_simplest');
+    $default = 6;
+    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $settings->add($page);
+
     // Advanced settings.
     $page = new admin_settingpage('theme_simplest_advanced', get_string('advancedsettings', 'theme_boost'));
 

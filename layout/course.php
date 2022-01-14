@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Theme functions.
+ * The columns layout for the classic theme.
  *
  * @package   theme_simplest
  * @copyright 2020, LMSwithAI <contact@lmswithai.com>
@@ -24,14 +24,32 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+
 $bodyattributes = $OUTPUT->body_attributes();
+$blockspre = $OUTPUT->blocks('side-pre');
+$blockspost = $OUTPUT->blocks('side-post');
+
+$inspirationalquotes = theme_simplest_quotes_items();
+$disableinspirationalquotes = get_config('theme_simplest', 'disableinspirationalquotes');
+
+if (empty($inspirationalquotes)) {
+    $disableinspirationalquotes = "1";
+}
+
+$hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
+$hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
 
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
-    'lmswithai' => $OUTPUT->image_url('lmswithai', 'theme'),
     'output' => $OUTPUT,
-    'bodyattributes' => $bodyattributes
+    'sidepreblocks' => $blockspre,
+    'sidepostblocks' => $blockspost,
+    'haspreblocks' => $hassidepre,
+    'haspostblocks' => $hassidepost,
+    'bodyattributes' => $bodyattributes,
+    'inspirationalquotes' => $inspirationalquotes,
+    'disableinspirationalquotes' => $disableinspirationalquotes
 ];
 
-echo $OUTPUT->render_from_template('theme_simplest/login', $templatecontext);
+echo $OUTPUT->render_from_template('theme_simplest/course', $templatecontext);
 

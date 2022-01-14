@@ -22,7 +22,98 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+/**
+ * Get config theme quotes items
+ *
+ * @return string
+ */
+function theme_simplest_quotes_items() {
+    $theme = theme_config::load('simplest');
+
+    $insspquo = $theme->settings->inspirationalquotes;
+
+    if (empty($insspquo)) {
+        return;
+    }
+
+    $lines = explode("\n", $insspquo);
+    $insspquo = null;
+    if ( !empty($lines) ) {
+        foreach ($lines as $line) {
+
+            if (!empty($line) && strlen($line) > 0) {
+
+                $insspquo .= '<li><div class="iquotestext" >'. trim( $line ) .'</div></li>';
+
+            }
+
+        }
+    }
+    return $insspquo;
+}
+
+/**
+ * Inject additional SCSS.
+ *
+ * @param theme_config $theme The theme config object.
+ * @return string
+ */
+function theme_simplest_generate_slider_scss() {
+    global $CFG;
+
+    $theme = theme_config::load('simplest');
+
+    $insspquo = $theme->settings->inspirationalquotes;
+    $duration = $theme->settings->inspirationalquotesduration;
+
+    if (empty($insspquo)) {
+        return;
+    }
+
+    if (empty($duration) || $duration == 0) {
+        $duration = 6;
+    }
+
+    $lines = explode("\n", $insspquo);
+    $insspquo = null;
+    $i = 1;
+    $numline = 0;
+    $scsssclier = file_get_contents($CFG->dirroot . '/theme/simplest/scss/simplest/inspirationalquotes.scss');
+    if ( !empty($lines) ) {
+
+        foreach ($lines as $line) {
+
+            if (!empty($line) && strlen($line) > 0) {
+                $numline++;
+                $i++;
+
+                $scsssclier .= "
+                    .slides ul  li:nth-child(" . $i . "), .slides ul  li:nth-child(" . $i . ") div {
+                        -webkit-animation-delay: " . $numline * $duration . ".0s;
+                        -webkit-animation-delay: " . $numline * $duration . ".0s;
+                        -moz-animation-delay: " . $numline * $duration . ".0s;
+                    }";
+            }
+        }
+    }
+
+    $maxduration = $numline * $duration;
+
+    $scsssclier = theme_simplest_set_maxduration($scsssclier, $maxduration);
+
+    return $scsssclier;
+}
+
+
+function theme_simplest_set_maxduration($scss, $maxduration) {
+    $tag = '[[setting:maxduration]]';
+    $replacement = strval($maxduration) . '.0s';
+    if (is_null($replacement)) {
+        $replacement = '24.0s';
+    }
+    $scss = str_replace($tag, $replacement, $scss);
+    return $scss;
+}
 
 
 /**
@@ -47,8 +138,11 @@ function theme_simplest_get_main_scss_content($theme) {
     // Post CSS - this is loaded AFTER the main scss but before the extra scss from the setting.
     $post = file_get_contents($CFG->dirroot . '/theme/simplest/scss/post.scss');
 
+    // Quotes slider.
+    $slider = theme_simplest_generate_slider_scss();
+
     // Combine them together.
-    return $pre . "\n" . $scss . "\n" . $post;
+    return $pre . "\n" . $scss . "\n" . $post . "\n" . $slider;
 }
 
 /**
@@ -176,3 +270,4 @@ function theme_simplest_check_redir() {
     }
     return false;
 }
+

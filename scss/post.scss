@@ -1,100 +1,170 @@
-/*******************
-Topic format
-*******************/
+/**
+*Topic format.
+*/
 .course-content ul.topics .activity {
     width: 150px;
     height: auto;
     background: #f4f4f4;
     margin: 5px;
+    padding: 0 0 0.4rem 0;
+    border-radius: 5px;
     display: block;
     position: relative;
     -webkit-transition: background 0.5s ease-in;
     -moz-transition: background 0.5s ease-in;
-     -ms-transition: background 0.5s ease-in;
-      -o-transition: background 0.5s ease-in;
-         transition: background 0.5s ease-in;
-&:hover {
-    background: #dfdfdf;
-}
-&>div {
-    padding: unset;
-}
-.actions {
-    width: 100%;
-    justify-content: space-between;
-}
-img.activityicon {
-    display: block;
-    // margin: 20px auto;
-    margin: 30px auto 10px auto;
-    vertical-align: text-bottom;
-    width: 64px;
-    height: 64px;
-}
-.activityinstance > a {
-    display: block;
-    text-indent: unset;
-    padding-left: unset;
-    height: 100%;
-    width: 100%;
+    -ms-transition: background 0.5s ease-in;
+    -o-transition: background 0.5s ease-in;
+    transition: background 0.5s ease-in;
 
     &:hover {
-        color: black;
-        text-decoration: unset;
+        background: #dfdfdf;
     }
-}
-.activityinstance .inplaceeditable.inplaceeditingon{
-    z-index: 9999;
-    width: 150px;
-    margin-top: 60px;
 
-    input {
+    & > div {
+        padding: unset;
+    }
+
+    .actions {
         width: 100%;
-        margin-left:2px;
+        justify-content: space-between;
+    }
+
+    img.activityicon {
+        display: block;
+        margin: 30px auto 10px auto;
+        vertical-align: text-bottom;
+        width: 64px;
+        height: 64px;
+    }
+
+    .activityinstance > a {
+        display: block;
+        text-indent: unset;
+        padding-left: unset;
+        height: 100%;
+        width: 100%;
+
+        &:hover {
+            color: black;
+            text-decoration: unset;
+        }
+    }
+
+    .activityinstance .inplaceeditable.inplaceeditingon {
+        z-index: 9999;
+        width: 150px;
+        margin-top: 60px;
+
+        input {
+            width: 100%;
+            margin-left: 2px;
+        }
+    }
+
+    span.instancename {
+        display: block;
+        padding: 5px;
+        color: black;
+        font-size: 12px;
+    }
+
+    .editing_move {
+        position: absolute;
+        left: 0;
+        top: unset;
+        bottom: 0;
+    }
+
+    .activityinstance {
+        min-width: 40%;
+        display: flex;
+        justify-content: center;
+        padding-right: unset;
+        min-height: 2em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .availabilityinfo,
+    .section .activity .contentafterlink {
+        margin-top: unset;
+        margin-left: unset;
+    }
+
+    .availabilityinfo .badge {
+        white-space: break-spaces;
+        width: 100%;
+        border-radius: unset;
+        font-size: 100%;
+    }
+
+    .availabilityinfo {
+        font-size: 0.7em;
+    }
+
+    .actions .autocompletion .icon {
+        margin-top: .5rem;
+        margin-left: .5rem;
+    }
+
+    .modtype_label {
+        width: 100%;
+        height: auto;
+        background: #f4f4f4;
+        margin: 5px;
+    }
+
+    .activity-information {
+        font-size: 12px;
+        display: flex;
+
+        button {
+            border-radius: 0px 4px 4px 0px;
+        }
+    }
+
+    .badge {
+        border-radius: 0px 4px 4px 0px;
+    }
+
+    .hasinfo {
+        padding: unset;
     }
 }
-span.instancename {
-    display: block;
-    padding: 5px;
-}
-.editing_move {
-    position: absolute;
-    left: 0;
-    top: unset;
-    bottom: 0;
-}
-.activityinstance {
-    min-width: 40%;
-    display: flex;
-    justify-content: center;
-    padding-right: unset;
-    min-height: 2em;
-    width: 100%;
-    text-align: center;
+
+/***
+* Inspirational quotes.
+*******************/
+.inspirationalquotesblock {
+    min-height: 150px;
+    height: 150px;
+	max-height: 300px;
+    background-color: $primary;
+
+    .iconstart {
+        color: rgba(255, 255, 255, 0.07);
+        font-size: 2em;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+    }
+    .iconend {
+        color: rgba(255, 255, 255, 0.07);
+        font-size: 2em;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
 }
 
-.availabilityinfo, .section .activity .contentafterlink {
-    margin-top: unset;
-    margin-left: unset;
-}
-.availabilityinfo .badge {
-    white-space: break-spaces;
-    width: 100%;
-    border-radius: unset;
-    font-size: 100%;
-}
-.availabilityinfo {
-    font-size: 0.7em;
-}
-.actions .autocompletion .icon {
-    margin-top: .5rem;
-    margin-left: .5rem;
-}
-}
+/**
+* LSMwithAI mark.
+*/
+p.lmswithai {
+    color: #c1c1c1;
+    font-size: 0.7rem;
 
-.course-content ul.topics .activity.modtype_label {
-width: 100%;
-height: auto;
-background: #f4f4f4;
-margin: 5px;
+    span {
+        padding-right: 5px;
+    }
 }
