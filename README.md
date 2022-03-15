@@ -9,16 +9,13 @@ The Simplest Moodle Theme - Moodle Classic child theme.
 Has additional features:
 
 - Redirect to the course if the user has only one course
-
 - Simplified user menu
-
 - Tiled appearance of courses using the topics format
-
 - Simplified login panel
-
 - Hiding the Moodle logo in the footer
-
 - Block of quotes
+- **New!** 3 additional color styles (easter, mourning, spring)
+- **New!** Possibility to set style in date range
 
 Simplest is built on Boostrap4 and Mustache templates.
 

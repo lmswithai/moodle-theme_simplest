@@ -41,9 +41,9 @@ function theme_simplest_quotes_items() {
     if ( !empty($lines) ) {
         foreach ($lines as $line) {
 
-            if (!empty($line) && strlen($line) > 0) {
+            if (strlen($line) > 1) {
 
-                $insspquo .= '<li><div class="iquotestext" >'. trim( $line ) .'</div></li>';
+                $insspquo .= '<li>'. trim( $line ) .'</li>';
 
             }
 
@@ -55,8 +55,7 @@ function theme_simplest_quotes_items() {
 /**
  * Inject additional SCSS.
  *
- * @param theme_config $theme The theme config object.
- * @return string
+ * @return string new scss stylesheet inspirationalquotes.scss.
  */
 function theme_simplest_generate_slider_scss() {
     global $CFG;
@@ -64,14 +63,13 @@ function theme_simplest_generate_slider_scss() {
     $theme = theme_config::load('simplest');
 
     $insspquo = $theme->settings->inspirationalquotes;
-    $duration = $theme->settings->inspirationalquotesduration;
-
+    $textduration = $theme->settings->inspirationalquotesduration;
     if (empty($insspquo)) {
         return;
     }
 
-    if (empty($duration) || $duration == 0) {
-        $duration = 6;
+    if (empty($textduration) || $textduration == 0) {
+        $textduration = 2;
     }
 
     $lines = explode("\n", $insspquo);
@@ -81,38 +79,154 @@ function theme_simplest_generate_slider_scss() {
     $scsssclier = file_get_contents($CFG->dirroot . '/theme/simplest/scss/simplest/inspirationalquotes.scss');
     if ( !empty($lines) ) {
 
+        $linescount = 0;
+        foreach ($lines as $line) {
+            if (strlen($line) > 1) {
+                $linescount++;
+            }
+        }
+
+        $calculation = theme_simplest_animation_calculate($textduration, $linescount);
+
+        $scsssclier = theme_simplest_set_keyframe($scsssclier,
+                                                $calculation->visibleprechide,
+                                                $calculation->visibleprecend,
+                                                $calculation->visibleprecstart);
+
+        $scsssclier = theme_simplest_set_maxduration($scsssclier, $calculation->animtime);
+
+        $timequote = $calculation->blockanimtime;
+
         foreach ($lines as $line) {
 
-            if (!empty($line) && strlen($line) > 0) {
+            if (strlen($line) > 1) {
                 $numline++;
                 $i++;
 
                 $scsssclier .= "
-                    .slides ul  li:nth-child(" . $i . "), .slides ul  li:nth-child(" . $i . ") div {
-                        -webkit-animation-delay: " . $numline * $duration . ".0s;
-                        -webkit-animation-delay: " . $numline * $duration . ".0s;
-                        -moz-animation-delay: " . $numline * $duration . ".0s;
+                    .insquotes ul li:nth-child(" . $i . ") {
+                        -webkit-animation-delay: " . $numline * $timequote . "s;
+                        -moz-animation-delay: " . $numline * $timequote . "s;
                     }";
             }
         }
     }
 
-    $maxduration = $numline * $duration;
-
-    $scsssclier = theme_simplest_set_maxduration($scsssclier, $maxduration);
-
     return $scsssclier;
 }
 
+/**
+ * Calculate css animation time and keyframe.
+ *
+ * @param  int $textduration time set in settings.
+ * @param  int $linesnum count line quotes.
+ * @return object
+ */
+function theme_simplest_animation_calculate($textduration, $linesnum) {
 
+    // Quote animation time.
+    $blockanimtime = $textduration;
+    // All animation time.
+    $animtime = $blockanimtime * $linesnum;
+
+    // Keyframe percent.
+    $visibleprechide = round(($blockanimtime * 100) / $animtime, 2);
+    $visibleprecend = $visibleprechide - 1;
+    $visibleprecstart = 1;
+
+    $calculation = new stdClass();
+    $calculation->blockanimtime = $blockanimtime;
+    $calculation->animtime = $animtime;
+    $calculation->visibleprechide = $visibleprechide;
+    $calculation->visibleprecend = $visibleprecend;
+    $calculation->visibleprecstart = $visibleprecstart;
+
+    return $calculation;
+}
+
+/**
+ * Set keyframe in style scss.
+ *
+ * @param  string $scss stylesheet inspirationalquotes.scss.
+ * @param  int $visibleprechide keyframe precent hide.
+ * @param  int $visibleprecend keyframe precent to start hide.
+ * @param  int $visibleprecstart keyframe precent to start visible.
+ * @return string new scss stylesheet inspirationalquotes.scss.
+ */
+function theme_simplest_set_keyframe($scss, $visibleprechide, $visibleprecend, $visibleprecstart) {
+
+    $tag = '[[setting:visibleprechide]]';
+    $replacement = strval($visibleprechide) . '%';
+    $scss = str_replace($tag, $replacement, $scss);
+
+    $tag = '[[setting:visibleprecend]]';
+    $replacement = strval($visibleprecend) . '%';
+    $scss = str_replace($tag, $replacement, $scss);
+
+    $tag = '[[setting:visibleprecstart]]';
+    $replacement = strval($visibleprecstart) . '%';
+    $scss = str_replace($tag, $replacement, $scss);
+
+    $scss = str_replace($tag, $replacement, $scss);
+    return $scss;
+}
+
+/**
+ * Animation time set in scss.
+ *
+ * @param  string $scss stylesheet inspirationalquotes.scss.
+ * @param  int $maxduration quotes animation time.
+ * @return string new scss stylesheet inspirationalquotes.scss.
+ */
 function theme_simplest_set_maxduration($scss, $maxduration) {
     $tag = '[[setting:maxduration]]';
     $replacement = strval($maxduration) . '.0s';
-    if (is_null($replacement)) {
-        $replacement = '24.0s';
-    }
     $scss = str_replace($tag, $replacement, $scss);
     return $scss;
+}
+
+
+/**
+ * Cron task, change theme style.
+ *
+ * @return boolean
+ */
+function theme_simplest_change_style() {
+
+    $theme = theme_config::load('simplest');
+    $limitedbydate = !empty($theme->settings->limitedbydate) ? $theme->settings->limitedbydate : null;
+
+    if (!$limitedbydate) {
+        return false;
+    }
+
+    $startdate = strtotime(!empty($theme->settings->startdate) ? $theme->settings->startdate : null);
+    $enddate = strtotime(!empty($theme->settings->enddate) ? $theme->settings->enddate : null);
+    $currenttime = time();
+
+    if ($startdate < $currenttime) {
+
+        $presettemporary = !empty($theme->settings->presettemporary) ? $theme->settings->presettemporary : null;
+        $preset = !empty($theme->settings->preset) ? $theme->settings->preset : null;
+
+        if ($preset != $presettemporary) {
+            set_config('preset', $presettemporary, 'theme_simplest');
+            theme_reset_all_caches();
+            mtrace('Date temporary style start');
+            mtrace('Set style: ' . $presettemporary);
+        }
+    }
+
+    if ($enddate < $currenttime) {
+
+        set_config('preset', 'default.scss', 'theme_simplest');
+        set_config('limitedbydate', false, 'theme_simplest');
+        theme_reset_all_caches();
+        mtrace('Date temporary style end');
+        mtrace('Set style: default.scss');
+    }
+
+    return true;
 }
 
 
@@ -126,10 +240,21 @@ function theme_simplest_get_main_scss_content($theme) {
     global $CFG;
 
     $scss = '';
+    $filename = !empty($theme->settings->preset) ? $theme->settings->preset : null;
 
     // Main CSS - Get the CSS from theme Classic.
     $scss .= file_get_contents($CFG->dirroot . '/theme/classic/scss/classic/pre.scss');
-    $scss .= file_get_contents($CFG->dirroot . '/theme/classic/scss/preset/default.scss');
+
+    if ($filename == 'default.scss') {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/classic/scss/preset/default.scss');
+    } else if ($filename == 'easter.scss') {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/simplest/scss/preset/easter.scss');
+    } else if ($filename == 'mourning.scss') {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/simplest/scss/preset/mourning.scss');
+    } else if ($filename == 'spring.scss') {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/simplest/scss/preset/spring.scss');
+    }
+
     $scss .= file_get_contents($CFG->dirroot . '/theme/classic/scss/classic/post.scss');
 
     // Pre CSS - this is loaded AFTER any prescss from the setting but before the main scss.
@@ -158,13 +283,25 @@ function theme_simplest_get_pre_scss($theme) {
         'brandcolor' => ['primary'],
     ];
 
+    $filename = !empty($theme->settings->preset) ? $theme->settings->preset : null;
+
     // Prepend variables first.
     foreach ($configurable as $configkey => $targets) {
         $value = isset($theme->settings->{$configkey}) ? $theme->settings->{$configkey} : null;
+
+        if ($filename == 'mourning.scss') {
+            $value = '#000';
+        }
+
+        if ($filename == 'spring.scss') {
+            $value = '#8dc63f';
+        }
+
         if (empty($value)) {
             continue;
         }
         array_map(function($target) use (&$scss, $value) {
+
             $scss .= '$' . $target . ': ' . $value . ";\n";
         }, (array) $targets);
     }
@@ -198,13 +335,27 @@ function theme_simplest_get_extra_scss($theme) {
             '/theme/simplest/scss/simplest/default-body-background.scss');
     }
 
-    if (!empty($theme->settings->navbardark)) {
+    $filename = !empty($theme->settings->preset) ? $theme->settings->preset : null;
+
+    if ($filename == 'mourning.scss') {
         $content .= file_get_contents($CFG->dirroot .
-            '/theme/simplest/scss/simplest/navbar-dark.scss');
+        '/theme/simplest/scss/simplest/navbar-mourning.scss');
+    } else if ($filename == 'spring.scss') {
+
+        $content .= file_get_contents($CFG->dirroot .
+        '/theme/simplest/scss/simplest/navbar-spring.scss');
     } else {
-        $content .= file_get_contents($CFG->dirroot .
-            '/theme/classic/scss/classic/navbar-light.scss');
+
+        if (!empty($theme->settings->navbardark)) {
+            $content .= file_get_contents($CFG->dirroot .
+                '/theme/simplest/scss/simplest/navbar-dark.scss');
+        } else {
+            $content .= file_get_contents($CFG->dirroot .
+                '/theme/classic/scss/classic/navbar-light.scss');
+        }
+
     }
+
     if (!empty($theme->settings->scss)) {
         $content .= $theme->settings->scss;
     }

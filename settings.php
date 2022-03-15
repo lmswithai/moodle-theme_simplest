@@ -53,6 +53,71 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Preset.
+    $name = 'theme_simplest/preset';
+    $title = get_string('preset', 'theme_simplest');
+    $description = get_string('preset_desc', 'theme_simplest');
+    $default = 'default.scss';
+
+    $context = context_system::instance();
+    $fs = get_file_storage();
+    $files = $fs->get_area_files($context->id, 'theme_simplest', 'preset', 0, 'itemid, filepath, filename', false);
+
+    $choices = [];
+    foreach ($files as $file) {
+        $choices[$file->get_filename()] = $file->get_filename();
+    }
+    // These are the built in presets.
+    $choices['default.scss'] = get_string('preset:default', 'theme_simplest');
+    $choices['easter.scss'] = get_string('preset:easter', 'theme_simplest');
+    $choices['spring.scss'] = get_string('preset:spring', 'theme_simplest');
+    $choices['mourning.scss'] = get_string('preset:mourning', 'theme_simplest');
+
+    $setting = new admin_setting_configthemepreset($name, $title, $description, $default, $choices, 'simplest');
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $name = 'theme_adaptable/settingspresettemporary';
+    $heading = get_string('settingspresettemporary', 'theme_simplest');
+    $setting = new admin_setting_heading($name, $heading, '');
+    $page->add($setting);
+
+    $name = 'theme_simplest/limitedbydate';
+    $title = get_string('limitedbydate', 'theme_simplest');
+    $description = get_string('limitedbydate_desc', 'theme_simplest');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, '');
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Preset temporary.
+    $name = 'theme_simplest/presettemporary';
+    $title = get_string('presettemporary', 'theme_simplest');
+    $description = get_string('presettemporary_desc', 'theme_simplest');
+    $default = $choices['default.scss'];
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $page->add($setting);
+
+    $name = 'theme_simplest/startdate';
+    $title = get_string('startdate', 'theme_simplest');
+    $description = get_string('startdate_desc', 'theme_simplest');
+    $default = '2022-03-10';
+    $setting = new theme_simplest_admin_setting_special_date_configtext($name, $title, $description, $default, PARAM_RAW_TRIMMED);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $name = 'theme_simplest/enddate';
+    $title = get_string('enddate', 'theme_simplest');
+    $description = get_string('enddate_desc', 'theme_simplest');
+    $default = '2022-03-17';
+    $setting = new theme_simplest_admin_setting_special_date_configtext($name, $title, $description, $default, PARAM_RAW_TRIMMED);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $name = 'theme_adaptable/settingsother';
+    $heading = get_string('settingsother', 'theme_simplest');
+    $setting = new admin_setting_heading($name, $heading, '');
+    $page->add($setting);
+
     $name = 'theme_simplest/redir';
     $title = get_string('redir', 'theme_simplest');
     $description = get_string('redir_desc', 'theme_simplest');
@@ -70,7 +135,7 @@ if ($ADMIN->fulltree) {
     // Must add the page after definiting all the settings!
     $settings->add($page);
 
-    $page = new admin_settingpage('theme_simplest_other', get_string('othersettings', 'theme_simplest'));
+    $page = new admin_settingpage('theme_simplest_inspquotes', get_string('inspirationalquotessettings', 'theme_simplest'));
 
     $name = 'theme_simplest/disableinspirationalquotes';
     $title = get_string('disableinspirationalquotes', 'theme_simplest');
@@ -90,7 +155,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_simplest/inspirationalquotesduration';
     $title = get_string('inspirationalquotesduration', 'theme_simplest');
     $description = get_string('inspirationalquotesdurationdesc', 'theme_simplest');
-    $default = 6;
+    $default = 3;
     $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
