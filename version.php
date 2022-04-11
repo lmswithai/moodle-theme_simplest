@@ -25,9 +25,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->version = 2022041101;
-$plugin->requires = 2019111800;
-$plugin->supported = [39, 311];
+$plugin->requires = 2022040500;
+$plugin->supported = [40, 40];
 $plugin->component = 'theme_simplest';
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = '1.3.0';
-$plugin->dependencies = array('theme_classic' => 2020061500);
+$plugin->dependencies = array('theme_classic' => 2022011400);

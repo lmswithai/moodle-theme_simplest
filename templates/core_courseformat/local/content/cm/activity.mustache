@@ -1,0 +1,149 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_simplest/core_courseformat/local/content/cm/activity
+
+    Display the activity content of a cm.
+
+    Example context (json):
+    {
+        "cmname": {
+            "displayvalue" : "<a class=\"aalink\" href=\"#\"><span class=\"instancename\">Activity example</span></a>"
+        },
+        "hasname": "true",
+        "afterlink": "<span class=\"badge badge-primary\">30 unread messages</span>",
+        "hasextras": true,
+        "extras": ["<span class=\"badge badge-secondary\">[extras]</span>"],
+        "activityinfo": {
+            "hasmodavailability": true,
+            "activityname": "Activity example",
+            "hascompletion": true,
+            "uservisible": true,
+            "hasdates": true,
+            "isautomatic": true,
+            "istrackeduser": true,
+            "activitydates": [
+                {
+                    "label": "Opens:",
+                    "datestring": "6 April 2021, 6:46 PM"
+                }
+            ],
+            "completiondetails": [
+                {
+                    "statuscomplete": 1,
+                    "description": "Viewed"
+                },
+                {
+                    "statusincomplete": 1,
+                    "description": "Receive a grade"
+                }
+            ]
+        },
+        "modstealth": true
+    }
+}}
+{{#moveicon}} {{{moveicon}}} {{/moveicon}}
+<div class="activity-basis d-flex align-items-center">
+    <div class="d-flex flex-column align-items-center w-100">
+            <div class="activity-info mb-2">
+                <div class="activity-descryption mt-0 ml-1 mr-1">
+                    <!-- Button modal description -->
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#actdesc-{{anchor}}">
+                        <i class="fa fa-info" aria-hidden="true"></i>
+                    </button>
+                </div>
+                {{#activityinfo}}
+                    {{$ core_courseformat/local/content/cm/activity_info}}
+                        {{> core_courseformat/local/content/cm/activity_info}}
+                    {{/ core_courseformat/local/content/cm/activity_info}}
+                {{/activityinfo}}
+            </div>
+        {{^hasname}}
+            {{$ core_courseformat/local/content/cm/badges }}
+                {{> core_courseformat/local/content/cm/badges }}
+            {{/ core_courseformat/local/content/cm/badges }}
+        {{/hasname}}
+        {{#cmname}}
+        {{$ core/inplace_editable }}
+            {{> core/inplace_editable }}
+        {{/ core/inplace_editable }}
+        {{/cmname}}
+        {{#afterlink}}
+            <div class="afterlink">
+                {{{afterlink}}}
+            </div>
+        {{/afterlink}}
+    </div>
+</div>
+{{#hasname}}
+    {{$ core_courseformat/local/content/cm/badges }}
+        {{> core_courseformat/local/content/cm/badges }}
+    {{/ core_courseformat/local/content/cm/badges }}
+{{/hasname}}
+
+<!-- Modal description -->
+<div class="modal fade" id="actdesc-{{anchor}}" tabindex="-1" role="dialog" aria-labelledby="actdesc-{{anchor}}-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="actdesc-{{anchor}}-label">{{activityname}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="description">
+            {{#activityinfo}}
+                {{#hasdates}}
+                <div data-region="activity-dates" class="activity-dates small course-description-item">
+                    <div class="description-inner">
+                        {{#activitydates}}
+                            {{$core_course/activity_date}}
+                                {{>core_course/activity_date}}
+                            {{/core_course/activity_date}}
+                        {{/activitydates}}
+                    </div>
+                </div>
+                {{/hasdates}}
+            {{/activityinfo}}
+            {{#altcontent}}
+                <div class="activity-altcontent {{#hasname}}course-description-item small{{/hasname}}{{^hasname}}contentwithoutlink{{/hasname}} d-flex">
+                    <div class="flex-fill description-inner">
+                        {{{altcontent}}}
+                    </div>
+                </div>
+            {{/altcontent}}
+            {{#modavailability}}
+                {{$ core_courseformat/local/content/cm/availability }}
+                    {{> core_courseformat/local/content/cm/availability }}
+                {{/ core_courseformat/local/content/cm/availability }}
+            {{/modavailability}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{{#controlmenu}}
+    <div class="activity-actions align-self-start">
+        {{$ core_courseformat/local/content/cm/controlmenu }}
+            {{> core_courseformat/local/content/cm/controlmenu }}
+        {{/ core_courseformat/local/content/cm/controlmenu }}
+    </div>
+{{/controlmenu}}
+

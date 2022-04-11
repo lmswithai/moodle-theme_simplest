@@ -1,0 +1,62 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_simplest/core_courseformat/local/content/cm/title
+
+    Displays a course module instance inside a course section.
+
+    Example context (json):
+    {
+        "url": "#",
+        "instancename": "Activity name",
+        "uservisible": true,
+        "icon": "../../../pix/help.svg",
+        "onclick": "alert('ok')",
+        "pluginname": "File",
+        "altname": "PDF file",
+        "linkclasses": "",
+        "textclasses": "",
+        "purpose": "content",
+        "modname": "resource"
+    }
+}}
+{{#url}}
+    <div class="activity-instance d-flex justify-content-center">
+        <div class="activitytitle media {{textclasses}} modtype_{{modname}} flex-column  align-items-center position-relative ">
+            {{#uservisible}}
+            <div class="activityiconcontainer {{purpose}} courseicon mb-1">
+                <img src="{{{icon}}}" class="activityicon " alt="{{{modname}}} icon">
+            </div>
+            {{/uservisible}}
+            {{^uservisible}}
+            <div class="activityiconcontainer lock courseicon mb-1">
+                <i class="fa fa-lock" class="activityicon " alt="{{{modname}}} icon" aria-hidden="true"></i>
+            </div>
+            {{/uservisible}}
+            {{#uservisible}}
+                <a href="{{url}}" class="{{linkclasses}} aalink stretched-link text-center py-2" onclick="{{{onclick}}}">
+                    <span class="instancename">{{{instancename}}} {{{altname}}}</span>
+                </a>
+            {{/uservisible}}
+            {{^uservisible}}
+                <span class="instancename text-center py-2">
+                    {{{instancename}}} {{{altname}}}
+                </span>
+            {{/uservisible}}
+        </div>
+    </div>
+{{/url}}

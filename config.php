@@ -148,7 +148,7 @@ $THEME->layouts = [
 ];
 
 $THEME->editor_sheets = [];
-$THEME->parents = ['boost', 'classic'];
+$THEME->parents = ['classic'];
 $THEME->enable_dock = false;
 $THEME->extrascsscallback = 'theme_simplest_get_extra_scss';
 $THEME->prescsscallback = 'theme_simplest_get_pre_scss';
@@ -159,3 +159,4 @@ $THEME->scss = function($theme) {
     return theme_simplest_get_main_scss_content($theme);
 };
 $THEME->usefallback = true;
+$THEME->haseditswitch = false;

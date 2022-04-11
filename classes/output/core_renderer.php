@@ -95,37 +95,6 @@ class theme_simplest_core_renderer extends core_renderer {
 
         $loginpage = $this->is_login_page();
         $loginurl = get_login_url();
-        // If not logged in, show the typical not-logged-in string.
-        if (!isloggedin()) {
-            $returnstr = get_string('loggedinnot', 'moodle');
-            if (!$loginpage) {
-                $returnstr .= " (<a href=\"$loginurl\">" . get_string('login') . '</a>)';
-            }
-            return html_writer::div(
-                html_writer::span(
-                    $returnstr,
-                    'login'
-                ),
-                $usermenuclasses
-            );
-
-        }
-
-        // If logged in as a guest user, show a string to that effect.
-        if (isguestuser()) {
-            $returnstr = get_string('loggedinasguest');
-            if (!$loginpage && $withlinks) {
-                $returnstr .= " (<a href=\"$loginurl\">".get_string('login').'</a>)';
-            }
-
-            return html_writer::div(
-                html_writer::span(
-                    $returnstr,
-                    'login'
-                ),
-                $usermenuclasses
-            );
-        }
 
         // Get some navigation opts.
         $opts = user_get_user_navigation_info($user, $this->page);
@@ -135,7 +104,7 @@ class theme_simplest_core_renderer extends core_renderer {
 
         if ($simpleusermenu == 1) {
 
-            unset($opts->navitems[1]);
+            unset($opts->navitems[0]);
 
             // Links: Change password.
             $changepass = new stdClass();
@@ -143,11 +112,26 @@ class theme_simplest_core_renderer extends core_renderer {
             $changepass->url = new moodle_url('/login/change_password.php');
             $changepass->title = get_string('changepassword', 'moodle');
             $changepass->titleidentifier = 'changepassword,moodle';
-            $changepass->pix = "i/settings";
             $opts->navitems[0] = $changepass;
 
         }
         // End theme hack.
+
+        if (!empty($opts->unauthenticateduser)) {
+            $returnstr = get_string($opts->unauthenticateduser['content'], 'moodle');
+            // If not logged in, show the typical not-logged-in string.
+            if (!$loginpage && (!$opts->unauthenticateduser['guest'] || $withlinks)) {
+                $returnstr .= " (<a href=\"$loginurl\">" . get_string('login') . '</a>)';
+            }
+
+            return html_writer::div(
+                html_writer::span(
+                    $returnstr,
+                    'login nav-link'
+                ),
+                $usermenuclasses
+            );
+        }
 
         $avatarclasses = "avatars";
         $avatarcontents = html_writer::span($opts->metadata['useravatar'], 'avatar current');
@@ -212,10 +196,10 @@ class theme_simplest_core_renderer extends core_renderer {
 
         $am = new action_menu();
         $am->set_menu_trigger(
-            $returnstr
+            $returnstr,
+            'nav-link'
         );
         $am->set_action_label(get_string('usermenu'));
-        $am->set_alignment(action_menu::TR, action_menu::BR);
         $am->set_nowrap_on_items();
         if ($withlinks) {
             $navitemcount = count($opts->navitems);

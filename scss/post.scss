@@ -1,136 +1,81 @@
-/**
-*Topic format.
-*/
-.course-content ul.topics .activity {
+/***
+* New course style format.
+***/
+.section > li {
     width: 150px;
     height: auto;
     background: #f4f4f4;
-    margin: 5px;
-    padding: 0 0 0.4rem 0;
     border-radius: 5px;
-    display: block;
-    position: relative;
     transition: background 0.5s ease-in;
+}
 
-    &:hover {
-        background: #dfdfdf;
-    }
+.section > li:hover {
+    background: #dfdfdf;
+}
 
-    & > div {
-        padding: unset;
-    }
+.activity-item .activity-info,
+.activity-item .activity-actions {
+    flex-direction: unset;
+    margin-left: auto;
+    padding-left: 0.5rem;
+    align-self: start;
+    display: flex;
+    justify-content: center;
+}
 
-    .actions {
-        width: 100%;
-        justify-content: space-between;
-    }
+.activityiconcontainer.lock {
+    background-color: #4f5a60;
+}
 
-    img.activityicon {
-        display: block;
-        margin: 30px auto 10px auto;
-        vertical-align: text-bottom;
-        width: 64px;
-        height: 64px;
-    }
+.activityiconcontainer.lock i {
+    font-size: 1.4rem;
+    color: white;
+}
 
-    .activityinstance > a {
-        display: block;
-        text-indent: unset;
-        padding-left: unset;
-        height: 100%;
-        width: 100%;
+.activity-item:not(.activityinline) {
+    border: 0px;
+    padding: 0.1rem;
+}
 
-        &:hover {
-            color: black;
-            text-decoration: unset;
-        }
-    }
+.activitytitle span.instancename,
+.activitytitle a {
+    font-size: 0.7375rem;
+    line-height: 1.2;
+    width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-    .activityinstance .inplaceeditable.inplaceeditingon {
-        z-index: 9999;
-        width: 150px;
-        margin-top: 60px;
+.activitytitle > span.instancename {
+    opacity: 0.6;
+}
 
-        input {
-            width: 100%;
-            margin-left: 2px;
-        }
-    }
+.course-content .section.dropready li.activity.dropready.drop-up {
+    border-top: unset;
+    margin-top: unset;
+    border-left: 1px solid #1d2125;
+    margin-left: -1px;
+}
 
-    span.instancename {
-        display: block;
-        padding: 5px;
-        color: black;
-        font-size: 12px;
-    }
+.course-content .section.dropready li.activity.dropready.drop-down {
+    border-bottom: unset;
+    margin-bottom: unset;
+    border-right: 1px solid #1d2125;
+    margin-right: -1px;
+}
 
-    .editing_move {
-        position: absolute;
-        left: 0;
-        top: unset;
-        bottom: 0;
-    }
+.inplaceeditable.inplaceeditable-text .activitytitle a {
+    width: 70px;
+}
 
-    .activityinstance {
-        min-width: 40%;
-        display: flex;
-        justify-content: center;
-        padding-right: unset;
-        min-height: 2em;
-        width: 100%;
-        text-align: center;
-    }
-
-    .availabilityinfo,
-    .section .activity .contentafterlink {
-        margin-top: unset;
-        margin-left: unset;
-    }
-
-    .availabilityinfo .badge {
-        white-space: break-spaces;
-        width: 100%;
-        border-radius: unset;
-        font-size: 100%;
-    }
-
-    .availabilityinfo {
-        font-size: 0.7em;
-    }
-
-    .actions .autocompletion .icon {
-        margin-top: .5rem;
-        margin-left: .5rem;
-    }
-
-    .modtype_label {
-        width: 100%;
-        height: auto;
-        background: #f4f4f4;
-        margin: 5px;
-    }
-
-    .activity-information {
-        font-size: 12px;
-        display: flex;
-
-        button {
-            border-radius: 0 4px 4px 0;
-        }
-    }
-
-    .badge {
-        border-radius: 0 4px 4px 0;
-    }
-
-    .hasinfo {
-        padding: unset;
-    }
+.badge {
+    font-size: 70%;
 }
 
 /***
 * Inspirational quotes.
-*******************/
+***/
 .inspirationalquotesblock {
     min-height: 150px;
     height: 150px;
@@ -138,14 +83,15 @@
     background-color: $primary;
 
     .iconstart {
-        color: rgba(255, 255, 255, 0.07);
+        color: rgba(255, 255, 255, 7%);
         font-size: 2em;
         position: absolute;
         bottom: 10px;
         left: 10px;
     }
+
     .iconend {
-        color: rgba(255, 255, 255, 0.07);
+        color: rgba(255, 255, 255, 7%);
         font-size: 2em;
         position: absolute;
         top: 10px;
@@ -155,18 +101,27 @@
     .quote-author {
         color: #ffffffba;
         font-style: italic;
-        font-size: .8375rem;
+        font-size: 0.8375rem;
     }
 }
 
-/**
+/***
 * LSMwithAI mark.
-*/
+***/
 p.lmswithai {
     color: #c1c1c1;
     font-size: 0.7rem;
 
     span {
         padding-right: 5px;
+    }
+}
+
+/***
+* Footer.
+***/
+#page-footer {
+    a {
+        color: #c1c1c1;
     }
 }
