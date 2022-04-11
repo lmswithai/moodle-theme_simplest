@@ -68,7 +68,9 @@
                         <div class="card-body pt-4">
                                 <div class="insquotes">
                                     <ul>
-                                        {{{inspirationalquotes}}}
+                                        {{# inspirationalquotes }}
+                                        <li>{{ quote }} {{# author }}<p class="quote-author">~ {{ author }}</p>{{/ author }}</li>
+                                        {{/ inspirationalquotes }}
                                     </ul>
                                 </div>
                         </div>

@@ -135,6 +135,7 @@ if ($ADMIN->fulltree) {
     // Must add the page after definiting all the settings!
     $settings->add($page);
 
+    // Inspirational quotes settings.
     $page = new admin_settingpage('theme_simplest_inspquotes', get_string('inspirationalquotessettings', 'theme_simplest'));
 
     $name = 'theme_simplest/disableinspirationalquotes';
@@ -144,11 +145,17 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    $langs = get_string_manager()->get_list_of_translations();
+    $langinfo = '';
+    foreach ($langs as $keylang => $valuelang) {
+        $langinfo .= "{$keylang} ";
+    }
+
     $name = 'theme_simplest/inspirationalquotes';
     $title = get_string('inspirationalquotes', 'theme_simplest');
-    $description = get_string('inspirationalquotesdesc', 'theme_simplest');
+    $description = get_string('inspirationalquotesdesc', 'theme_simplest', $langinfo);
     $default = get_string('inspirationalquotesdef', 'theme_simplest');
-    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
+    $setting = new admin_setting_configtextarea($name, $title, $description, $default, PARAM_RAW, 15, 20);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 

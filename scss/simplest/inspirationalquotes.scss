@@ -47,6 +47,7 @@
     position:absolute;
     top:0;
     -webkit-animation-name: anim_quotes;
+    /* stylelint-disable-next-line CssSyntaxError */
     -webkit-animation-duration: [[setting:maxduration]];
     -webkit-animation-timing-function: linear;
     -webkit-animation-iteration-count: infinite;

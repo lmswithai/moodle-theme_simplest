@@ -45,8 +45,29 @@ $string['rawscss_desc'] = 'Use this field to provide SCSS or CSS code which will
 // Inspirational quotes settings.
 $string['inspirationalquotessettings'] = 'Inspirational quotes settings';
 $string['inspirationalquotes'] = 'Inspirational quotes';
-$string['inspirationalquotesdef'] = 'Everyone who works on artificial intelligence knows that computers will beat us all.';
-$string['inspirationalquotesdesc'] = 'Each quote must be on a new line.<br>Try to get quotes were not too long!';
+$string['inspirationalquotesdef'] = 'a computer would deserve to be called intelligent if it could deceive a human into believing that it was a human|en|Alan Turing
+An unwillingness to admit the possibility that mankind can have any rivals in
+intellectual power. This occurs as much amongst intellectual people as amongst
+others: they have more to lose.|en|Alan Turing"
+Mathematical reasoning may be regarded rather schematically as the exercise of a combination of two facilities, which we may call intuition and ingenuity|en|Alan Turing
+Young Man, in mathematics you dont understand things. You just get used to them|en|John von neumann
+The idea behind digital computers may be explained by saying that these machines are intended to carry out any operations which could be done by a human computer.|en|Alan Turing
+Im not so much afraid of artificial intelligence as of natural stupidity.|en|joel de rosnay
+computers will be able to read at human levels by 2029 and will also begin to have different human characteristics,|en|Raymond Kurzweil
+artificial intelligence is far more dangerous than nukes.|en|Elon Musk
+Computers will overtake humans with AI at some point within the next 100 years|en|Stephen Hawking
+Success in creating AI would be the biggest event in human history,Unfortunately, it might also be the last, unless we learn how to avoid the risks.|en|Stephen Hawking
+I imagine a world in which AI is going to make us work more productively, live longer, and have cleaner energy.|en|Fei - Fei Li';
+$string['inspirationalquotesdesc'] = 'Each quote must be on a new line.<br>
+Try to get quotes were not too long!
+<br>Additionally, you can add after the sign "<strong>|</strong>" tags that extend the quote to be displayed on a specific language and quote author.
+<br> Example:
+<br><div style="border:solid 1px #DEDEDE;background:#f8f9fa;color:#222222;padding:4px;"><pre>
+<br>First quote.<strong>|</strong>en<strong>|</strong>Joel de Rosnay
+<br>First quote in Polish.<strong>|</strong>pl<strong>|</strong>Joel de Rosnay
+<br>Second quote, no author.<strong>|</strong>en
+<br>Quote for all languages.<strong>||</strong>Joel de Rosnay</pre></div>
+<br> Your platform supports languages: <strong> {$a} </strong>';
 $string['disableinspirationalquotes'] = 'Disable quotation block';
 $string['disableinspirationalquotesdesc'] = 'Checking this box will disable the quotes block';
 $string['inspirationalquotesduration'] = 'Duration quiestes';

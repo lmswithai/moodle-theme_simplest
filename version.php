@@ -24,10 +24,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2022031100;
+$plugin->version = 2022041101;
 $plugin->requires = 2019111800;
 $plugin->supported = [39, 311];
 $plugin->component = 'theme_simplest';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '1.2.0';
-$plugin->dependencies = array('theme_boost' => 2020061500, 'theme_classic' => 2020061500);
+$plugin->release = '1.3.0';
+$plugin->dependencies = array('theme_classic' => 2020061500);

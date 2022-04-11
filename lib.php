@@ -25,31 +25,99 @@
 /**
  * Get config theme quotes items
  *
- * @return string
+ * @return array
  */
 function theme_simplest_quotes_items() {
     $theme = theme_config::load('simplest');
 
     $insspquo = $theme->settings->inspirationalquotes;
-
+    $quoterender = [];
     if (empty($insspquo)) {
         return;
     }
 
     $lines = explode("\n", $insspquo);
-    $insspquo = null;
     if ( !empty($lines) ) {
         foreach ($lines as $line) {
 
-            if (strlen($line) > 1) {
+            if (strlen(trim($line)) > 1) {
 
-                $insspquo .= '<li>'. trim( $line ) .'</li>';
+                $quote = theme_simplest_quotes_build_line($line);
+                if (array_key_exists('lang', $quote)) {
+
+                    $lang = current_language();
+
+                    if ($lang == $quote['lang']) {
+                        array_push($quoterender, theme_simplest_quotes_build_line($line));
+                    }
+
+                } else {
+                    array_push($quoterender, theme_simplest_quotes_build_line($line));
+                }
 
             }
 
         }
     }
-    return $insspquo;
+
+    return  $quoterender;
+}
+
+
+/**
+ * Build one quote line.
+ *
+ * @param  string $line one quote line.
+ * @return array $quote object.
+ */
+function theme_simplest_quotes_build_line($line) {
+
+    $quote = [];
+    $parm = explode("|", $line);
+
+    if (!empty($parm[0])) {
+        $quote['quote'] = trim($parm[0]);
+    }
+
+    if (!empty($parm[1])) {
+        $langs = get_string_manager()->get_list_of_translations();
+
+        if (array_key_exists($parm[1], $langs)) {
+            $quote['lang'] = trim($parm[1]);
+        }
+    }
+
+    if (!empty($parm[2])) {
+        $quote['author'] = trim($parm[2]);
+    }
+
+    return $quote;
+}
+
+/**
+ * Load dynamic quote css.
+ *
+ * @return string The HTML code to insert before the head.
+ */
+function theme_simplest_before_standard_html_head() {
+    global $PAGE;
+
+    $stylecss = '';
+
+    if ($PAGE->pagelayout == 'course') {
+
+        $css = theme_simplest_generate_slider_css();
+
+        if (empty($css)) {
+            return;
+        }
+
+        $stylecss .= '<style>';
+        $stylecss .= $css;
+        $stylecss .= '</style>';
+    }
+
+    return $stylecss;
 }
 
 /**
@@ -57,13 +125,14 @@ function theme_simplest_quotes_items() {
  *
  * @return string new scss stylesheet inspirationalquotes.scss.
  */
-function theme_simplest_generate_slider_scss() {
+function theme_simplest_generate_slider_css() {
     global $CFG;
 
     $theme = theme_config::load('simplest');
-
-    $insspquo = $theme->settings->inspirationalquotes;
     $textduration = $theme->settings->inspirationalquotesduration;
+
+    $insspquo = theme_simplest_quotes_items();
+
     if (empty($insspquo)) {
         return;
     }
@@ -72,44 +141,30 @@ function theme_simplest_generate_slider_scss() {
         $textduration = 2;
     }
 
-    $lines = explode("\n", $insspquo);
-    $insspquo = null;
     $i = 1;
-    $numline = 0;
     $scsssclier = file_get_contents($CFG->dirroot . '/theme/simplest/scss/simplest/inspirationalquotes.scss');
-    if ( !empty($lines) ) {
+    $linescount = count($insspquo);
 
-        $linescount = 0;
-        foreach ($lines as $line) {
-            if (strlen($line) > 1) {
-                $linescount++;
-            }
-        }
+    $calculation = theme_simplest_animation_calculate($textduration, $linescount);
 
-        $calculation = theme_simplest_animation_calculate($textduration, $linescount);
+    $scsssclier = theme_simplest_set_keyframe($scsssclier,
+                                            $calculation->visibleprechide,
+                                            $calculation->visibleprecend,
+                                            $calculation->visibleprecstart);
 
-        $scsssclier = theme_simplest_set_keyframe($scsssclier,
-                                                $calculation->visibleprechide,
-                                                $calculation->visibleprecend,
-                                                $calculation->visibleprecstart);
+    $scsssclier = theme_simplest_set_maxduration($scsssclier, $calculation->animtime);
 
-        $scsssclier = theme_simplest_set_maxduration($scsssclier, $calculation->animtime);
+    $timequote = $calculation->blockanimtime;
 
-        $timequote = $calculation->blockanimtime;
+    foreach ($insspquo as $num => $line) {
+            $num++;
+            $i++;
+            $scsssclier .= "
+.insquotes ul li:nth-child(" . $i . ") {
+    -webkit-animation-delay: " . $num * $timequote . "s;
+    -moz-animation-delay: " . $num * $timequote . "s;
+}";
 
-        foreach ($lines as $line) {
-
-            if (strlen($line) > 1) {
-                $numline++;
-                $i++;
-
-                $scsssclier .= "
-                    .insquotes ul li:nth-child(" . $i . ") {
-                        -webkit-animation-delay: " . $numline * $timequote . "s;
-                        -moz-animation-delay: " . $numline * $timequote . "s;
-                    }";
-            }
-        }
     }
 
     return $scsssclier;
@@ -264,7 +319,7 @@ function theme_simplest_get_main_scss_content($theme) {
     $post = file_get_contents($CFG->dirroot . '/theme/simplest/scss/post.scss');
 
     // Quotes slider.
-    $slider = theme_simplest_generate_slider_scss();
+    $slider = '';
 
     // Combine them together.
     return $pre . "\n" . $scss . "\n" . $post . "\n" . $slider;

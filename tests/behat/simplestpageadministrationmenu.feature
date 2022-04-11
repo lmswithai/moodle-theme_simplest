@@ -1,5 +1,5 @@
 @javascript @theme_simplest
-Feature: Page administration menu
+Feature: Simplest Page administration menu
   To navigate in classic theme I need to use the page administration menu
 
   Background:

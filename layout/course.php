@@ -30,6 +30,7 @@ $blockspre = $OUTPUT->blocks('side-pre');
 $blockspost = $OUTPUT->blocks('side-post');
 
 $inspirationalquotes = theme_simplest_quotes_items();
+$inspirationalquotescss = theme_simplest_generate_slider_css();
 $disableinspirationalquotes = get_config('theme_simplest', 'disableinspirationalquotes');
 
 if (empty($inspirationalquotes)) {
@@ -48,6 +49,7 @@ $templatecontext = [
     'haspostblocks' => $hassidepost,
     'bodyattributes' => $bodyattributes,
     'inspirationalquotes' => $inspirationalquotes,
+    'inspirationalquotescss' => $inspirationalquotescss,
     'disableinspirationalquotes' => $disableinspirationalquotes
 ];
 
