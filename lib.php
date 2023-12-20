@@ -18,7 +18,7 @@
  * Theme functions.
  *
  * @package   theme_simplest
- * @copyright 2020, LMSwithAI <contact@lmswithai.com>
+ * @copyright 2024, LMSwithAI <contact@lmswithai.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -308,6 +308,10 @@ function theme_simplest_get_main_scss_content($theme) {
         $scss .= file_get_contents($CFG->dirroot . '/theme/simplest/scss/preset/mourning.scss');
     } else if ($filename == 'spring.scss') {
         $scss .= file_get_contents($CFG->dirroot . '/theme/simplest/scss/preset/spring.scss');
+    } else if ($filename == 'valentinesday.scss') {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/simplest/scss/preset/valentinesday.scss');
+    } else if ($filename == 'christmas.scss') {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/simplest/scss/preset/christmas.scss');
     }
 
     $scss .= file_get_contents($CFG->dirroot . '/theme/classic/scss/classic/post.scss');
@@ -350,6 +354,14 @@ function theme_simplest_get_pre_scss($theme) {
 
         if ($filename == 'spring.scss') {
             $value = '#8dc63f';
+        }
+
+        if ($filename == 'christmas.scss') {
+            $value = '#c30010';
+        }
+
+        if ($filename == 'valentinesday.scss') {
+            $value = '#c30010';
         }
 
         if (empty($value)) {
@@ -399,6 +411,14 @@ function theme_simplest_get_extra_scss($theme) {
 
         $content .= file_get_contents($CFG->dirroot .
         '/theme/simplest/scss/simplest/navbar-spring.scss');
+    } else if ($filename == 'valentinesday.scss') {
+
+        $content .= file_get_contents($CFG->dirroot .
+        '/theme/simplest/scss/simplest/navbar-valentinesday.scss');
+    } else if ($filename == 'christmas.scss') {
+
+        $content .= file_get_contents($CFG->dirroot .
+        '/theme/simplest/scss/simplest/navbar-christmas.scss');
     } else {
 
         if (!empty($theme->settings->navbardark)) {

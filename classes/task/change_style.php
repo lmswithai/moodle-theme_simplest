@@ -19,7 +19,7 @@
  *
  * @package     theme_simplest
  * @category    admin
- * @copyright   2022 INTERSIEĆ <pomoc@intersiec.com.pl>
+ * @copyright   2024, LMSwithAI <contact@lmswithai.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

@@ -18,7 +18,7 @@
  * Special admin setting for theme_simplest that validates date.
  *
  * @package   theme_simplest
- * @copyright 2020, LMSwithAI <contact@lmswithai.com>
+ * @copyright 2024, LMSwithAI <contact@lmswithai.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -27,7 +27,7 @@
  * Special admin setting for theme_simplest that validates date.
  *
  * @package   theme_simplest
- * @copyright 2020, LMSwithAI <contact@lmswithai.com>
+ * @copyright 2024, LMSwithAI <contact@lmswithai.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class theme_simplest_admin_setting_special_date_configtext extends admin_setting_configtext {

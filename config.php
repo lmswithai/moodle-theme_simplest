@@ -18,7 +18,7 @@
  * Theme functions.
  *
  * @package   theme_simplest
- * @copyright 2020, LMSwithAI <contact@lmswithai.com>
+ * @copyright 2024, LMSwithAI <contact@lmswithai.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -108,7 +108,7 @@ $THEME->layouts = [
     'embedded' => array(
         'theme' => 'boost',
         'file' => 'embedded.php',
-        'regions' => array()
+        'regions' => array(),
     ),
     // Used during upgrade and install, and for the 'This site is undergoing maintenance' message.
     // This must not have any blocks, links, or API calls that would lead to database or cache interaction.
@@ -143,8 +143,8 @@ $THEME->layouts = [
         'theme' => 'classic',
         'file' => 'secure.php',
         'regions' => array('side-pre'),
-        'defaultregion' => 'side-pre'
-    )
+        'defaultregion' => 'side-pre',
+    ),
 ];
 
 $THEME->editor_sheets = [];

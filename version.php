@@ -18,16 +18,16 @@
  * Theme functions.
  *
  * @package   theme_simplest
- * @copyright 2020, LMSwithAI <contact@lmswithai.com>
+ * @copyright 2024, LMSwithAI <contact@lmswithai.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2022041101;
+$plugin->version = 2023122102;
 $plugin->requires = 2022040500;
-$plugin->supported = [40, 40];
 $plugin->component = 'theme_simplest';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '1.3.0';
-$plugin->dependencies = array('theme_classic' => 2022011400);
+$plugin->release = '1.4.0';
+$plugin->supported = [400, 403];
+$plugin->dependencies = ['theme_classic' => 2022011400];

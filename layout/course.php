@@ -18,7 +18,7 @@
  * The columns layout for the classic theme.
  *
  * @package   theme_simplest
- * @copyright 2020, LMSwithAI <contact@lmswithai.com>
+ * @copyright 2024, LMSwithAI <contact@lmswithai.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -50,7 +50,7 @@ $templatecontext = [
     'bodyattributes' => $bodyattributes,
     'inspirationalquotes' => $inspirationalquotes,
     'inspirationalquotescss' => $inspirationalquotescss,
-    'disableinspirationalquotes' => $disableinspirationalquotes
+    'disableinspirationalquotes' => $disableinspirationalquotes,
 ];
 
 echo $OUTPUT->render_from_template('theme_simplest/course', $templatecontext);

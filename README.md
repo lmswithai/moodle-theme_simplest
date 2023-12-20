@@ -14,8 +14,13 @@ Has additional features:
 - Simplified login panel
 - Hiding the Moodle logo in the footer
 - Block of quotes
-- **New!** 3 additional color styles (easter, mourning, spring)
-- **New!** Possibility to set style in date range
+- 3 additional color styles (easter, mourning, spring)
+- Possibility to set style in date range
+- **New!** 2 additional color styles (Christmas, Valentines day)
+- **New!** compatible with Moodle 4.1, 4.2, 4.3
+- **New!** compatible with IOMAD 4.1 and 4.2
+- **New!** compatible with https://lmswithai.com/ ver. 0.1
+
 
 Simplest is built on Boostrap4 and Mustache templates.
 

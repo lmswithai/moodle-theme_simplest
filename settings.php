@@ -18,7 +18,7 @@
  * Theme functions.
  *
  * @package   theme_simplest
- * @copyright 2020, LMSwithAI <contact@lmswithai.com>
+ * @copyright 2024, LMSwithAI <contact@lmswithai.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -72,6 +72,8 @@ if ($ADMIN->fulltree) {
     $choices['easter.scss'] = get_string('preset:easter', 'theme_simplest');
     $choices['spring.scss'] = get_string('preset:spring', 'theme_simplest');
     $choices['mourning.scss'] = get_string('preset:mourning', 'theme_simplest');
+    $choices['christmas.scss'] = get_string('preset:christmas', 'theme_simplest');
+    $choices['valentinesday.scss'] = get_string('preset:valentinesday', 'theme_simplest');
 
     $setting = new admin_setting_configthemepreset($name, $title, $description, $default, $choices, 'simplest');
     $setting->set_updatedcallback('theme_reset_all_caches');

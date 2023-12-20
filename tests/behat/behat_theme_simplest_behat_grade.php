@@ -19,7 +19,7 @@
  *
  * @package   theme_simplest
  * @category   test
- * @copyright 2020, LMSwithAI <contact@lmswithai.com>
+ * @copyright 2024, LMSwithAI <contact@lmswithai.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -34,7 +34,7 @@ use Behat\Gherkin\Node\TableNode as TableNode;
  *
  * @package   theme_simplest
  * @category   test
- * @copyright 2020, LMSwithAI <contact@lmswithai.com>
+ * @copyright 2024, LMSwithAI <contact@lmswithai.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class behat_theme_simplest_behat_grade extends behat_grade {

@@ -18,7 +18,7 @@
  * Theme functions.
  *
  * @package   theme_simplest
- * @copyright 2020, LMSwithAI <contact@lmswithai.com>
+ * @copyright 2024, LMSwithAI <contact@lmswithai.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -79,8 +79,8 @@ $string['navbardark'] = 'Use a dark style navbar';
 $string['navbardark_desc'] = 'Swaps text and background colours for the navbar at the top of the page between dark and light.';
 $string['backgroundimage'] = 'Background image';
 $string['backgroundimage_desc'] = 'The image to display as a background of the site. The background image you upload here will override the background image in your theme preset files.';
-$string['brandcolor'] = 'Use a dark style navbar';
-$string['brandcolor_desc'] = 'Swaps text and background colours for the navbar at the top of the page between dark and light.';
+$string['brandcolor'] = 'Brand colour';
+$string['brandcolor_desc'] = 'The accent colour.';
 
 // Preset.
 $string['preset'] = 'Theme preset';
@@ -89,6 +89,8 @@ $string['preset:default'] = 'Default';
 $string['preset:easter'] = 'Easter';
 $string['preset:spring'] = 'Spring';
 $string['preset:mourning'] = 'Mourning';
+$string['preset:christmas'] = 'Christmas';
+$string['preset:valentinesday'] = 'Valentines day';
 
 // Preset temporary settings.
 $string['settingspresettemporary'] = 'Preset temporaty settings:';

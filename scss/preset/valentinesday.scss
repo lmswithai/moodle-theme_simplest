@@ -119,8 +119,15 @@ body {
 // Preset CSS
 .navbar {
     box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
-    border-bottom: 5px solid;
-    border-image: linear-gradient(to right, #e39dbb 25%, #f0c147 25%, #f0c147 50%, #23ece1 50%, #23ece1 75%, #d68c37 75%) 5;
+}
+
+.nav.navbar-nav.usernav::before,
+.navbar-nav#usernavigation::before {
+    background: url([[pix:theme|preset/valentinesday/heart]]) no-repeat;
+    content: "";
+    display: inline-block;
+    width: 42px;
+    height: 44px;
 }
 
 // Rounded user pictures
@@ -130,18 +137,6 @@ body {
 
 .block {
     background-color: $gray-100;
-    background-image: url([[pix:theme|preset/easter/ester-egg-icon]]);
-    background-repeat: no-repeat;
-    background-position: right bottom;
-}
-
-.nav.navbar-nav.usernav::before,
-.navbar-nav#usernavigation::before {
-    background: url([[pix:theme|preset/easter/bunny]]) no-repeat;
-    content: "";
-    display: inline-block;
-    width: 42px;
-    height: 44px;
 }
 
 #page-my-index {

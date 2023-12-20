@@ -19,7 +19,7 @@
  *
  * @package     theme_simplest
  * @category    string
- * @copyright   1999 Martin Dougiamas and contributors
+ * @copyright   2024, LMSwithAI <contact@lmswithai.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
